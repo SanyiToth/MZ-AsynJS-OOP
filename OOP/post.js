@@ -2,11 +2,18 @@ export class Post {
     title;
     body;
     #id;
+    userId;
 
-    constructor(title, body, id) {
+    constructor(title, body, id, userId) {
         this.title = title;
         this.body = body;
         this.#id = id;
+        this.userId = userId;
+
+    }
+
+    get id() {
+        return this.#id;
     }
 
 

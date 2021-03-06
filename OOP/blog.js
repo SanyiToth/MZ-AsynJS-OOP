@@ -3,14 +3,13 @@ import {Post} from "./post.js";
 export class Blog {
     #title;
     #author;   // instanceof User Class
-    #posts;  // every item instanceof Posts Class
+    #posts = [];  // every item instanceof Posts Class
 
-    constructor(title, author, posts) {
+    constructor(title, author) {
         this.#title = title;
         this.#author = author;
-        this.#posts = this.fetchPost()
+        this.#fetchPost();
     }
-
 
     get title() {
         return this.#title;
@@ -24,16 +23,17 @@ export class Blog {
         return this.#posts;
     }
 
-    fetchPost() {
+    async #fetchPost() {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(response => {
                 if (!response.ok) throw Error(response.statusText);
                 else return response.json();
             })
             .then(data => {
-                return data;
+                this.#posts = data.map((post) => {
+                    return new Post(post.title, post.body, post.id, post.userId)
+                })
             })
-            .catch(error => console.log(error))
     }
 
     addPost(postItem) {
@@ -43,18 +43,29 @@ export class Blog {
     }
 
     deletePost(postId) {
-        
+        let isPostIdInArray = false;
+        this.#posts.forEach((post, index) => {
+            if (post.id === postId) {
+                this.#posts.splice(index, 1);
+                isPostIdInArray = true;
+            }
+        })
+        if (isPostIdInArray) console.log(`Instance deleted`);
+        else console.error(`there is no instance with this id: ${postId}`);
+        return isPostIdInArray
         //return boolean
     }
 
     getPostById(postId) {
-        if (this.#posts instanceof Array) {
-            this.#posts.forEach(post => {
-                if (post.id === postId) {
-                    return post;
-                } else throw Error(`there is no instance with this id: ${postId}`);
-            })
-        } else throw Error("there are no posts");
+        let postItem = null;
+        this.#posts.forEach((post, index) => {
+            if (post.id === postId) {
+                postItem = post;
+            }
+        })
+        if (postItem) {
+            return postItem;
+        } else throw Error(`there is no instance with this id: ${postId}`)
 
         //return Post class
     }
