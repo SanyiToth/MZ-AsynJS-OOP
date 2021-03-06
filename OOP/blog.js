@@ -5,10 +5,12 @@ export class Blog {
     #author;   // instanceof User Class
     #posts = [];  // every item instanceof Posts Class
 
+
     constructor(title, author) {
         this.#title = title;
         this.#author = author;
         this.#fetchPost();
+
     }
 
     get title() {
@@ -23,6 +25,11 @@ export class Blog {
         return this.#posts;
     }
 
+    delay() {
+        return new Promise(resolve => setTimeout(resolve, 1000));
+    }
+
+
     async #fetchPost() {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(response => {
@@ -31,7 +38,7 @@ export class Blog {
             })
             .then(data => {
                 this.#posts = data.map((post) => {
-                    return new Post(post.title, post.body, post.id, post.userId)
+                    return new Post(post.title, post.body, post.id, post.userId)  //convert every Array item to Post class instance
                 })
             })
     }

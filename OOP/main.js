@@ -16,7 +16,7 @@ console.log("post1", post2);
 let blog = new Blog("firstBlog", user);
 console.log("blog", blog);
 
-setTimeout(function () {
+setTimeout(() => {
     console.log(user.fullName) //--> Sandor Toth
     console.log(user.email)   //--> remus18@gmail.com
     console.log("blog.getPost", blog.posts);
@@ -30,4 +30,5 @@ setTimeout(function () {
     console.log("blog.getPost after deletePost(101)", blog.posts);
     console.log(post1.getPreview(10).length); //--> 10
 }, 1000)
+
 
