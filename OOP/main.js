@@ -16,11 +16,7 @@ console.log("post1", post2);
 let blog = new Blog("firstBlog", user);
 console.log("blog", blog);
 
-async function delay(ms) {
-    return await new Promise(done => setTimeout(() => done(), ms));
-}
-
-await delay(100);
+await blog.delay();
 
 console.log(user.fullName) //--> Sandor Toth
 console.log(user.email)   //--> remus18@gmail.com
@@ -28,7 +24,7 @@ console.log("blog.getPost", blog.posts);
 blog.addPost(post1);
 blog.addPost(post2);
 console.log("blog.getPost after addPost", blog.posts);
-//console.log("getPostById", blog.getPostById(54))  //test with valid ID
+console.log("getPostById", blog.getPostById(54))  //test with valid ID
 //console.log(blog.getPostById(105))   //test with invalid ID
 blog.deletePost(1);  //test with valid ID
 blog.deletePost(105);  //test with invalid ID

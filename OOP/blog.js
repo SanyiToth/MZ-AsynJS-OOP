@@ -14,20 +14,32 @@ export class Blog {
     get title() {
         return this.#title;
     }
+
     get author() {
         return this.#author;
+    }
+
+    delay() {
+        return new Promise(resolve => setTimeout(resolve, 1000));
     }
 
     get posts() {
         return this.#posts;
     }
 
-    async #fetchPost() {
-        let data = null;
-        let response = await fetch('https://jsonplaceholder.typicode.com/posts')
-        if (!response.ok) throw Error(response.statusText);
-        else data = await response.json();
-        await this.convertToPostInstance(data);
+    #fetchPost() {
+        fetch('https://jsonplaceholder.typicode.com/posts')
+            .then(response => {
+                if (!response.ok) throw Error(response.statusText);
+                else return response.json();
+            })
+            .then(data => {
+                this.convertToPostInstance(data);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
     addPost(postItem) {
