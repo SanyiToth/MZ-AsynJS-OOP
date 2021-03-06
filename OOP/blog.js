@@ -1,8 +1,8 @@
-import {Post} from "./post";
+import {Post} from "./post.js";
 
 export class Blog {
     #title;
-    #author   // instanceof User Class
+    #author;   // instanceof User Class
     #posts;  // every item instanceof Posts Class
 
     constructor(title, author, posts) {
@@ -43,13 +43,19 @@ export class Blog {
     }
 
     deletePost(postId) {
-
-
-
+        
         //return boolean
     }
 
     getPostById(postId) {
+        if (this.#posts instanceof Array) {
+            this.#posts.forEach(post => {
+                if (post.id === postId) {
+                    return post;
+                } else throw Error(`there is no instance with this id: ${postId}`);
+            })
+        } else throw Error("there are no posts");
+
         //return Post class
     }
 
