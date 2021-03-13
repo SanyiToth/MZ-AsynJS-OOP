@@ -19,8 +19,8 @@ export class Blog {
         return this.#author;
     }
 
-    delay() {
-        return new Promise(resolve => setTimeout(resolve, 1000));
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     get posts() {

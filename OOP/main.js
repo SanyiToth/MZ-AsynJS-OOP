@@ -16,7 +16,7 @@ console.log("post1", post2);
 let blog = new Blog("firstBlog", user);
 console.log("blog", blog);
 
-await blog.delay();
+await blog.delay(1000);
 
 console.log(user.fullName) //--> Sandor Toth
 console.log(user.email)   //--> remus18@gmail.com
